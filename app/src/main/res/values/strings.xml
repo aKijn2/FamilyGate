@@ -23,4 +23,10 @@
     <string name="go_back">Go back</string>
     <string name="accessibility_service_label">FamilyGate app blocker</string>
     <string name="accessibility_service_description">Monitors opened apps and closes blocked apps.</string>
+    <string name="login_subtitle">Parent login required to manage settings</string>
+    <string name="login_button">Log in as parent</string>
+    <string name="login_fill_all_fields">Please fill in all fields</string>
+    <string name="login_signing_in">Signing in…</string>
+    <string name="login_failed">Login failed: %1$s</string>
+    <string name="lock_and_logout">Lock / Log out</string>
 </resources>

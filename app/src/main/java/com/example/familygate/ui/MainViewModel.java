@@ -86,6 +86,14 @@ public class MainViewModel extends AndroidViewModel {
         refreshDashboard();
     }
 
+    public boolean isParentLoggedIn() {
+        return !localRuleStore.getAuthToken().isEmpty();
+    }
+
+    public void logout() {
+        localRuleStore.clearAuthToken();
+    }
+
     public void syncRulesFromPocketBase(String childDeviceId) {
         String url = localRuleStore.getPocketBaseUrl();
         String email = localRuleStore.getPocketBaseEmail();

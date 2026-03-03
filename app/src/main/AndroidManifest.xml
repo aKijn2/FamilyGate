@@ -42,15 +42,21 @@
             android:excludeFromRecents="true"
             android:theme="@style/Theme.FamilyGate.Blocked" />
 
+        <!-- LoginActivity is the launcher — the child sees this first and
+             cannot access any settings without the parent's PocketBase password. -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- MainActivity is only reached after a successful parent login. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

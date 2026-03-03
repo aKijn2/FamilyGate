@@ -22,6 +22,7 @@ import androidx.work.WorkManager;
 import com.example.familygate.data.SyncWorker;
 import com.example.familygate.ui.AppUsageAdapter;
 import com.example.familygate.ui.MainViewModel;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.concurrent.TimeUnit;
@@ -42,6 +43,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        // If the parent is not authenticated, send them to the login screen.
+        // The child cannot bypass this without knowing the PocketBase password.
+        if (!viewModel.isParentLoggedIn()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
+        // Toolbar "Lock" menu item logs the parent out and returns to login screen.
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_logout) {
+                viewModel.logout();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
 
         EditText inputUrl = findViewById(R.id.input_pb_url);
         EditText inputEmail = findViewById(R.id.input_parent_email);

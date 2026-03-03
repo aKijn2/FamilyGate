@@ -19,6 +19,7 @@ public class LocalRuleStore {
     private static final String KEY_PB_EMAIL = "pocketbase_email";
     private static final String KEY_PB_PASSWORD = "pocketbase_password";
     private static final String KEY_CHILD_DEVICE_ID = "child_device_id";
+    private static final String KEY_AUTH_TOKEN = "auth_token";
 
     private final SharedPreferences prefs;
 
@@ -116,5 +117,24 @@ public class LocalRuleStore {
             map.put(rule.getPackageName(), rule);
         }
         return map;
+    }
+
+    // -----------------------------------------------------------------------
+    // Parent session token
+    // -----------------------------------------------------------------------
+
+    /** Persists the PocketBase auth token obtained after a successful login. */
+    public void saveAuthToken(String token) {
+        prefs.edit().putString(KEY_AUTH_TOKEN, token).apply();
+    }
+
+    /** Returns the stored token, or an empty string if the parent is not logged in. */
+    public String getAuthToken() {
+        return prefs.getString(KEY_AUTH_TOKEN, "");
+    }
+
+    /** Clears the auth token – effectively logs the parent out. */
+    public void clearAuthToken() {
+        prefs.edit().remove(KEY_AUTH_TOKEN).apply();
     }
 }

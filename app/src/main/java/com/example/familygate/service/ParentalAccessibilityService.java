@@ -11,7 +11,6 @@ import com.example.familygate.ui.BlockedAppActivity;
 public class ParentalAccessibilityService extends AccessibilityService {
     private final ParentalControlManager controlManager = new ParentalControlManager();
     private LocalRuleStore ruleStore;
-    private String lastBlockedPackage = "";
 
     @Override
     public void onServiceConnected() {
@@ -26,21 +25,23 @@ public class ParentalAccessibilityService extends AccessibilityService {
         }
 
         String packageName = event.getPackageName().toString();
+
+        // Never interfere with our own UI.
         if (getPackageName().equals(packageName)) {
             return;
         }
 
         if (controlManager.shouldBlockApp(packageName, ruleStore)) {
-            if (packageName.equals(lastBlockedPackage)) {
-                return;
+            // Only launch BlockedAppActivity when it is not already on screen.
+            // This prevents a rapid-fire loop while the block screen is visible,
+            // but immediately re-blocks the moment the child dismisses it and
+            // the blocked app returns to the foreground.
+            if (!BlockedAppActivity.isVisible) {
+                Intent blockIntent = new Intent(this, BlockedAppActivity.class);
+                blockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                blockIntent.putExtra("blocked_package", packageName);
+                startActivity(blockIntent);
             }
-            lastBlockedPackage = packageName;
-            Intent blockIntent = new Intent(this, BlockedAppActivity.class);
-            blockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            blockIntent.putExtra("blocked_package", packageName);
-            startActivity(blockIntent);
-        } else {
-            lastBlockedPackage = "";
         }
     }
 
