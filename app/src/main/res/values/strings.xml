@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">FamilyGate</string>
+    <string name="subtitle_dashboard">Parental Control Dashboard</string>
+    <string name="pocketbase_config">PocketBase Connection</string>
+    <string name="hint_pb_url">PocketBase URL (e.g. https://my-app.pockethost.io)</string>
+    <string name="hint_parent_email">Parent email</string>
+    <string name="hint_parent_password">Parent password</string>
+    <string name="hint_child_device_id">Child device ID</string>
+    <string name="save_config">Save config</string>
+    <string name="sync_rules">Sync rules</string>
+    <string name="status_idle">Ready</string>
+    <string name="permissions_title">Required Permissions</string>
+    <string name="permission_enabled">Status: enabled</string>
+    <string name="permission_disabled">Status: disabled</string>
+    <string name="open_usage_settings">Open Usage Access Settings</string>
+    <string name="open_accessibility_settings">Open Accessibility Settings</string>
+    <string name="apps_title">Installed Apps and Usage</string>
+    <string name="refresh">Refresh</string>
+    <string name="block">Block</string>
+    <string name="child_device_required">Child device ID is required</string>
+    <string name="blocked_title">This app is blocked</string>
+    <string name="blocked_subtitle">%1$s is restricted by FamilyGate.</string>
+    <string name="go_back">Go back</string>
+    <string name="accessibility_service_label">FamilyGate app blocker</string>
+    <string name="accessibility_service_description">Monitors opened apps and closes blocked apps.</string>
+</resources>
