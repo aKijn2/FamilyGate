@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Parent-flavor manifest overlay.
+    Merged on top of src/main/AndroidManifest.xml by the Android build tools.
+    Child-specific components are removed; the Parent launcher activity is added.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:label="@string/flavor_app_name"
+        tools:replace="android:label">
+
+        <!-- Remove the child-only accessibility service -->
+        <service
+            android:name=".service.ParentalAccessibilityService"
+            tools:node="remove" />
+
+        <!-- Remove the child-only blocked-app screen -->
+        <activity
+            android:name=".ui.BlockedAppActivity"
+            tools:node="remove" />
+
+        <!--
+            Replace the child MainActivity entry so it is no longer the launcher.
+            It remains compiled into the APK but has no intent-filter.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            tools:node="replace" />
+
+        <!-- Parent launcher activity (lives in src/parent/java/…) -->
+        <activity
+            android:name=".parent.ParentMainActivity"
+            android:exported="true"
+            android:label="@string/flavor_app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

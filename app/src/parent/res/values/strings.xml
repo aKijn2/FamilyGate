@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Parent-app-only strings (merged with main strings.xml for the parent flavor) -->
+    <string name="parent_actions_title">Manage Rules</string>
+    <string name="load_apps">Load Apps</string>
+    <string name="fetch_rules">Fetch Rules</string>
+    <string name="push_rules">Push Rules to PocketBase</string>
+    <string name="child_device_id_required">Please enter a Child Device ID first</string>
+    <string name="config_required">Save PocketBase config first</string>
+    <string name="load_apps_hint">Tap "Load Apps" to see installed apps on this device</string>
+</resources>

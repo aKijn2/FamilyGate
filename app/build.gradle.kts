@@ -18,6 +18,22 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions += "mode"
+    productFlavors {
+        create("child") {
+            dimension = "mode"
+            applicationId = "com.example.familygate"
+            versionNameSuffix = "-child"
+            resValue("string", "flavor_app_name", "FamilyGate")
+        }
+        create("parent") {
+            dimension = "mode"
+            applicationId = "com.example.familygate.parent"
+            versionNameSuffix = "-parent"
+            resValue("string", "flavor_app_name", "FamilyGate Parent")
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -25,6 +41,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
